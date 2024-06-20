@@ -1,0 +1,55 @@
+{% extends 'students/base.html' %}
+
+{% block title %}Student List{% endblock %}
+
+{% block content %}
+<h2 class="mt-5">Student List</h2>
+<ul>
+
+</ul>
+<table class="table table-bordered table-striped mt-3">
+    <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>College</th>
+            <th>Modify</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in page_obj.object_list %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.course }}</td>
+            <td>{{ student.college }}</td>
+            <td>{{ student.modify }}
+                <a href="{% url 'student_edit' student.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
+                <a href="{% url 'student_delete' student.id %}"><button type="button" class="btn btn-danger">Delete</button></a> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+
+

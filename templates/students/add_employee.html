@@ -1,0 +1,27 @@
+{% extends 'students/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1 class="mt-2">
+        {% block title %}
+            {% if edit %}
+                Edit Employee
+            {% else %}
+                Add Employee
+            {% endif %}
+        {% endblock %}
+    </h1>
+    <hr class="mt-0 mb-4">
+    <div class="col-4">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form | crispy}}
+            {% if edit %}
+                <button type="submit" class="btn btn-success">Update</button>
+            {% else %}
+                <button type="submit" class="btn btn-success">Submit</button>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
